@@ -6,7 +6,6 @@ import java.util.Optional;
 import com.bruno.api_restfull.dto.EscolaDTO;
 import com.bruno.api_restfull.model.Curso;
 import com.bruno.api_restfull.model.Escola;
-import com.bruno.api_restfull.repository.CursoRepository;
 import com.bruno.api_restfull.repository.EscolaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -29,12 +29,6 @@ public class CursoService {
         curso.setNome(objDTO.getNome());
         return curso;
     }
-
-    public CursoDTO toDTO(Curso curso){
-        CursoDTO dto = new CursoDTO();
-        dto.setNome(curso.getNome());
-        return dto;
-    }
     
     public List<Curso> getAllCursos(){
         return repository.getCursos();
@@ -43,15 +37,6 @@ public class CursoService {
     public Curso getCursoByCodigo(int codigo_curso){
         Optional<Curso> op = repository.getCursoByCodigo(codigo_curso);
         return op.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso não cadastrado!"));
-    }
-
-    public List<CursoDTO> toListDTO(List<Curso> cursos){
-        ArrayList<CursoDTO> listDTO = new ArrayList<CursoDTO>();
-
-        for(Curso c: cursos){
-            listDTO.add(toDTO(c));
-        }
-        return listDTO;
     }
 
     public Curso update(Curso curso){

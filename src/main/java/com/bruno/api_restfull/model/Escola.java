@@ -76,6 +76,7 @@ public class Escola {
     public double totalCursos() {
         double total = 0;
         for (Curso curso : cursos) {
+            curso.getCodigo();
             total++;
         }
         return total;
