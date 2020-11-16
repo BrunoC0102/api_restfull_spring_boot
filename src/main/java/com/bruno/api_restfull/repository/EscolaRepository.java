@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.bruno.api_restfull.model.Curso;
 import com.bruno.api_restfull.model.Escola;
 
 import org.springframework.stereotype.Component;
@@ -36,6 +37,13 @@ public class EscolaRepository {
 
     public void remove(Escola escola){
         escolas.remove(escola);
+    }
+
+    public void removeCursoByCodigo(Escola escola,Curso curso){
+        Escola aux = getEscolaByCodigo(escola.getCodigo_escola()).get();
+        if(aux != null){
+            aux.removeCurso(curso);
+        }
     }
 
     public Escola update(Escola escola){

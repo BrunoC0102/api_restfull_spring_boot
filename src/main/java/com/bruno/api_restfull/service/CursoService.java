@@ -59,6 +59,10 @@ public class CursoService {
         return repository.update(curso);
     }
 
+    public void removeByCodigo(int codigo_curso){
+        repository.remove(getCursoByCodigo(codigo_curso));
+    }
+
     public Curso save(Curso curso, int codigo_escola){
 
         Escola escola = escolaService.getEscolaByCodigo(codigo_escola);

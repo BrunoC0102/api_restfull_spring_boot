@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bruno.api_restfull.dto.EscolaDTO;
+import com.bruno.api_restfull.model.Curso;
 import com.bruno.api_restfull.model.Escola;
+import com.bruno.api_restfull.repository.CursoRepository;
 import com.bruno.api_restfull.repository.EscolaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +36,22 @@ public class EscolaService {
         return op.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Escola não cadastrada!"));
     }
 
-    public void removeByCodigo(int codigo_escola){
+    public boolean removeByCodigo(int codigo_escola){
+        Escola escola = getEscolaByCodigo(codigo_escola);
+        if(escola.totalCursos() != 0){
+            return false;
+        }
         repository.remove(getEscolaByCodigo(codigo_escola));
+        return true;
+    }
+
+    public void removeCursoByCodigo(int codigo_escola,int codigo_curso){
+        Escola escola = getEscolaByCodigo(codigo_escola);
+        for(Curso aux: escola.getCursos()){
+            if(aux.getCodigo() == codigo_curso){
+                repository.removeCursoByCodigo(escola,aux);
+            }
+        }
     }
 
     public Escola update(Escola escola){

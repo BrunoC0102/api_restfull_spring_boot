@@ -12,6 +12,7 @@ import com.bruno.api_restfull.service.CursoService;
 import com.bruno.api_restfull.service.EscolaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,15 +75,20 @@ public class EscolaController {
     }
 
     @DeleteMapping("/{codigo_escola}")
-    public ResponseEntity<Void> remover(@PathVariable int codigo_escola) {
-        escolaService.removeByCodigo(codigo_escola);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> remover(@PathVariable int codigo_escola) {
+        if(escolaService.removeByCodigo(codigo_escola)){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.badRequest().body("Você não pode excluir esta escola enquanto houver cursos");
     }
 
-    // @DeleteMapping("/{codigo_escola}/curso/{codigo_curso}")
-    // public ResponseEntity<Void> remover(@PathVariable int codigo_escola,@PathVariable int codigo_curso) {
-    //     escolaService.removeByCodigo(codigo_escola);
-    //     return ResponseEntity.noContent().build();
-    // }
+    // Esta função fuciona, remove o curso do repositório curso
+    // e do Atributo cursos do respositorios Escola, porém está apresentando o codigo 500 na saída do Insomnia.
+    @DeleteMapping("/{codigo_escola}/curso/{codigo_curso}")
+    public ResponseEntity<Void> remover(@PathVariable("codigo_escola") int codigo_escola,@PathVariable("codigo_curso") int codigo_curso) {
+        escolaService.removeCursoByCodigo(codigo_escola,codigo_curso);
+        cursoService.removeByCodigo(codigo_curso);
+        return ResponseEntity.noContent().build();
+    }
 
 }
