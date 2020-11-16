@@ -1,8 +1,12 @@
 package com.bruno.api_restfull.dto;
 
+import javax.validation.constraints.NotBlank;
 public class EscolaDTO {
     
+    @NotBlank(message = "Nome obrigatório!")
     private String nome;
+    
+    @NotBlank(message = "Endereço obrigatório!")
     private String endereco;
 
     public String getNome() {

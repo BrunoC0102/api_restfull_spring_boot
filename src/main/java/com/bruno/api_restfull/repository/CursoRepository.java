@@ -33,4 +33,18 @@ public class CursoRepository {
         }
         return Optional.empty();
     }
+
+    public void remove(Curso curso){
+        cursos.remove(curso);
+    }
+
+    public Curso update(Curso curso){
+        Curso aux = getCursoByCodigo(curso.getCodigo()).get();
+
+        if(aux != null){
+            aux.setNome(curso.getNome());
+        }
+
+        return aux;
+    }
 }

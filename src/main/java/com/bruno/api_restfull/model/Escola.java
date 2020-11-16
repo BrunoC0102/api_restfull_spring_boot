@@ -2,6 +2,8 @@ package com.bruno.api_restfull.model;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+
 public class Escola {
     
     private int codigo_escola;
@@ -62,8 +64,21 @@ public class Escola {
         this.cursos = cursos;
     }
 
-    public boolean addCurso(int numero_curso, String categoria, String nome_curso, String destinatarios, String descricao){
-        return cursos.add(new Curso(numero_curso,categoria,nome_curso,destinatarios,descricao));
+    public boolean addCurso(Curso curso){
+        return cursos.add(curso);
+    }
+
+    public boolean removeCurso(Curso curso) {
+        return cursos.remove(curso);
+    }
+
+    @JsonGetter
+    public double totalCursos() {
+        double total = 0;
+        for (Curso curso : cursos) {
+            total++;
+        }
+        return total;
     }
 
     @Override

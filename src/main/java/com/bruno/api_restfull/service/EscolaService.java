@@ -34,6 +34,15 @@ public class EscolaService {
         return op.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Escola não cadastrada!"));
     }
 
+    public void removeByCodigo(int codigo_escola){
+        repository.remove(getEscolaByCodigo(codigo_escola));
+    }
+
+    public Escola update(Escola escola){
+        getEscolaByCodigo(escola.getCodigo_escola());
+        return repository.update(escola);
+    }
+    
     public Escola save(Escola escola){
         return repository.save(escola);
     }

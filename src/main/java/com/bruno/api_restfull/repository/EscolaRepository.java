@@ -33,4 +33,19 @@ public class EscolaRepository {
         }
         return Optional.empty();
     }
+
+    public void remove(Escola escola){
+        escolas.remove(escola);
+    }
+
+    public Escola update(Escola escola){
+        Escola aux = getEscolaByCodigo(escola.getCodigo_escola()).get();
+
+        if(aux != null){
+            aux.setNome(escola.getNome());
+            aux.setEndereco(escola.getEndereco());
+        }
+
+        return aux;
+    }
 }
